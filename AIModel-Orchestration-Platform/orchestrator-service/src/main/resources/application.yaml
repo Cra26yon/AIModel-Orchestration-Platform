@@ -1,0 +1,34 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: orchestrator-service
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mysql://${op.db.host}:3306/aimodel-orchestration-platform?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: ${op.db.pw}
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.88.130:8848
+      config:
+        server-addr: 192.168.88.130:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8090
+      http-method-specify: true
+  main:
+    allow-circular-references: true
+  rabbitmq:
+    host: 192.168.88.130
+    port: 5672
+    virtual-host: /op
+    username: op
+    password: 123456
+#开启okhttp功能
+feign:
+  okhttp:
+    enabled: true
